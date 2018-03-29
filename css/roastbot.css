@@ -63,7 +63,7 @@ body {
             animation: flashRoll 3s ease alternate infinite; }
 
 .roastbox {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
   position: relative;
   height: auto;
   min-height: 33.333vh;
@@ -82,6 +82,13 @@ body {
   color: whitesmoke; }
   .roaster-btn:focus {
     outline: 0; }
+
+.roast-input {
+  position: relative;
+  z-index: 99;
+  margin-top: 1rem;
+  text-align: center;
+  width: 90%; }
 
 .robot {
   background: lightsteelblue;
@@ -171,13 +178,13 @@ body {
   0% {
     opacity: 0.5; }
   100% {
-    opacity: 0.2; } }
+    opacity: 0.1; } }
 
 @keyframes flashRoll {
   0% {
     opacity: 0.5; }
   100% {
-    opacity: 0.2; } }
+    opacity: 0.1; } }
 
 @-webkit-keyframes talkingRobot {
   0% {

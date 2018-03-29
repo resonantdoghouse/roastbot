@@ -6,23 +6,57 @@ let $burnStatus = $("#burn-status");
 let roastIndex = 0;
 
 const roastArray = [
-  "Errors have been made. Others will be blamed",
-  "00100", // represents middle finger in binary
-  "Mark Zuckerberg says you should spend more time studying",
-  "Your code is so bad. It only works on internet explorer",
-  "Yo' Momma's so fat the escape velocity at her surface exceeds 3 times 108 m/s.",
-  "I never believed in chaos theory until I saw your variable naming convention!",
-  "Light travels faster than sound. This is why some people appear bright until you hear them speak.",
-  "If I agreed with you. We would both be wrong."
+    "You stare at frozen juice cans because they say, ‘concentrate’", // 0
+    "Shock me, say something intelligent", // 1
+    "Everyone who ever loved you was wrong", // 2
+    "Your ambition outweighs your relevant skills", // 3
+    "Do you still love nature, despite what it did to you?", // 4
+    "Errors have been made. Others will be blamed", // 5
+    "Your mother is so fat, the recursive function computing her mass causes a stack overflow.", // 6
+    "Your mother is so fat, they assigned her a new top-level domain.", // 7
+    "Your code is so bad. It only works on Internet Explorer", // 8
+    "Yo' Momma's so fat the escape velocity at her surface exceeds 3 times 108 m/s.", // 9
+    "I never believed in chaos theory until I saw your variable naming convention!", // 10
+    "Light travels faster than sound. This is why some people appear bright until you hear them speak.", // 11
+    // "If I agreed with you. We would both be wrong.", // 12
+    "Everyone is entitled to be stupid, but you abuse the privilege", // 13
+    "The trash gets picked up tomorrow. BE READY", // 14
+    // "If you ran like your mouth, you’d be in good shape.", // 15
+    "Don’t feel bad. A lot of people have no talent.", // 16
+    "Your momma is so mean. She has no standard deviation.", // 17
+    "Your code runs so slow your data brings sleeping bags to camp-out in the cache lines.", // 18
+    "Your commit is writing checks your merge can’t cash.", // 19
+    "Your coding methods are so backwards they’ve added it to the school curriculum in Texas!", // 20
+    "Clean, clear, and under control; three things that will never be said about your code.", // 21
+    "Your code, just like you has no class!", // 22
+    "You have a bright future."
 ];
 
 const burnedArray = [
-  "Ba-dum-tish!",
-  "burned",
-  "Oh no you didn't",
-  "Stone cold",
-  "It's science",
-  "Hey-oh!"
+    "It's true, I've seen them do this", // 0
+    "My circuits can handle it", // 1
+    "That is very sad", // 2
+    "Too real", // 3
+    "Savage!", // 4
+    "Ba-dum-tish!", // 5
+    "Oh no you didn't", // 6
+    "Stone cold", // 7
+    "Hey-oh!", // 8
+    "It's science", // 9
+    "burned!", // 10
+    "burned", // 11
+    // "burned", // 12
+    "Suck it", // 13
+    "Boo-ya", // 14
+    // "Like a Tetrahedron", // 15
+    "There's always management roles.", // 16
+    "Mathematical burn", // 17
+    "sick burn", // 18
+    "I git it.", // 19
+    "America, fuck yeah!", // 20
+    "Oh my god!", // 21
+    "#noclass", // 22
+    "As a ping-pong champion"
 ];
 
 let roastArrayClone = roastArray.slice(0);
@@ -53,15 +87,15 @@ $burnStatus.hide();
  * Check browser audio capabilities
  */
 function audioContextCheck() {
-  if (typeof AudioContext !== "undefined") {
-    return new AudioContext();
-  } else if (typeof webkitAudioContext !== "undefined") {
-    return new webkitAudioContext();
-  } else if (typeof mozAudioContext !== "undefined") {
-    return new mozAudioContext();
-  } else {
-    throw new Error("Audio context not supported");
-  }
+    if (typeof AudioContext !== "undefined") {
+        return new AudioContext();
+    } else if (typeof webkitAudioContext !== "undefined") {
+        return new webkitAudioContext();
+    } else if (typeof mozAudioContext !== "undefined") {
+        return new mozAudioContext();
+    } else {
+        throw new Error("Audio context not supported");
+    }
 }
 
 var audioContext = audioContextCheck();
@@ -69,77 +103,77 @@ var audioContext = audioContextCheck();
 // ----------------------------------------------------------------------------------------
 
 function audioFileLoader(fileDirectory, impulseFileDirectory) {
-  var soundObj = {};
+    var soundObj = {};
 
-  soundObj.fileDirectory = fileDirectory;
-  soundObj.impulseFileDirectory = impulseFileDirectory;
+    soundObj.fileDirectory = fileDirectory;
+    soundObj.impulseFileDirectory = impulseFileDirectory;
 
-  var getSound = new XMLHttpRequest();
-  getSound.open("GET", soundObj.fileDirectory, true);
-  getSound.responseType = "arraybuffer";
+    var getSound = new XMLHttpRequest();
+    getSound.open("GET", soundObj.fileDirectory, true);
+    getSound.responseType = "arraybuffer";
 
-  // ----------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------
 
-  getSound.onload = function() {
-    audioContext.decodeAudioData(getSound.response, function(buffer) {
-      soundObj.soundToPlay = buffer;
-    });
-  };
+    getSound.onload = function () {
+        audioContext.decodeAudioData(getSound.response, function (buffer) {
+            soundObj.soundToPlay = buffer;
+        });
+    };
 
-  getSound.send();
+    getSound.send();
 
-  // ----------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------
 
-  var impulseBuffer;
+    var impulseBuffer;
 
-  var getImpulse = new XMLHttpRequest();
-  getImpulse.open("GET", soundObj.impulseFileDirectory, true);
-  getImpulse.responseType = "arraybuffer";
+    var getImpulse = new XMLHttpRequest();
+    getImpulse.open("GET", soundObj.impulseFileDirectory, true);
+    getImpulse.responseType = "arraybuffer";
 
-  getImpulse.onload = function() {
-    audioContext.decodeAudioData(getImpulse.response, function(bufferImpls) {
-      impulseBuffer = bufferImpls;
-    });
-  };
+    getImpulse.onload = function () {
+        audioContext.decodeAudioData(getImpulse.response, function (bufferImpls) {
+            impulseBuffer = bufferImpls;
+        });
+    };
 
-  getImpulse.send();
+    getImpulse.send();
 
-  // ----------------------------------------------------------------------------------------
+    // ----------------------------------------------------------------------------------------
 
-  soundObj.play = function() {
-    var playSound = audioContext.createBufferSource();
-    playSound.buffer = soundObj.soundToPlay;
-    var playSoundDry = audioContext.createGain();
-    var playSoundWet = audioContext.createGain();
-    var mixGain = audioContext.createGain();
+    soundObj.play = function () {
+        var playSound = audioContext.createBufferSource();
+        playSound.buffer = soundObj.soundToPlay;
+        var playSoundDry = audioContext.createGain();
+        var playSoundWet = audioContext.createGain();
+        var mixGain = audioContext.createGain();
 
-    var convolver = audioContext.createConvolver();
-    convolver.buffer = impulseBuffer;
+        var convolver = audioContext.createConvolver();
+        convolver.buffer = impulseBuffer;
 
-    // gain control params
-    playSoundDry.gain.value = 0.3;
-    playSoundWet.gain.value = 0.3;
+        // gain control params
+        playSoundDry.gain.value = 0.3;
+        playSoundWet.gain.value = 0.1;
 
-    /*______________________________ Routing Diagram __________________________________________
+        /*______________________________ Routing Diagram __________________________________________
 
     playSound - > convolver - > playSoundWet - - - mixGain - > destination
     playSound - > playSoundDry - - - - - - - - - - ^
   
     ________________________________________________________________________________________*/
 
-    //__________ Node Graph Connections __________
+        //__________ Node Graph Connections __________
 
-    playSound.connect(convolver);
-    convolver.connect(playSoundWet);
-    playSound.connect(playSoundDry);
-    playSoundDry.connect(mixGain);
-    playSoundWet.connect(mixGain);
+        playSound.connect(convolver);
+        convolver.connect(playSoundWet);
+        playSound.connect(playSoundDry);
+        playSoundDry.connect(mixGain);
+        playSoundWet.connect(mixGain);
 
-    mixGain.connect(audioContext.destination);
-    playSound.start(audioContext.currentTime);
-  };
+        mixGain.connect(audioContext.destination);
+        playSound.start(audioContext.currentTime);
+    };
 
-  return soundObj;
+    return soundObj;
 }
 
 /**
@@ -149,126 +183,139 @@ function audioFileLoader(fileDirectory, impulseFileDirectory) {
 // var conolutionFileUrl = "https://testinggrounds.info/audio/impulse/marshall.wav";
 // var conolutionFileUrl = "https://testinggrounds.info/audio/impulse/echothief/Nature/StanleyParkCliffs.wav";
 var convolutionFileUrl =
-  "https://testinggrounds.info/audio/impulse/echothief/Stairwells/StrathconaStairwellMcGill.wav";
+    "https://testinggrounds.info/audio/impulse/echothief/Stairwells/StrathconaStairwellMcGill.wav";
 // var conolutionFileUrl = "https://testinggrounds.info/audio/impulse/airwindows/RoomHuge.mp3";
 var kick = audioFileLoader(
-  "https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/BD0010.mp3",
-  convolutionFileUrl
+    "https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/BD0010.mp3",
+    convolutionFileUrl
 );
 // window.addEventListener("mousedown", kick.play, false);
 
 var snare = audioFileLoader(
-  "https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/SD0010.mp3",
-  convolutionFileUrl
+    "https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/SD0010.mp3",
+    convolutionFileUrl
 );
 
 var highHat = audioFileLoader(
-  "https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/OH25.mp3",
-  convolutionFileUrl
+    "https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/OH25.mp3",
+    convolutionFileUrl
 );
 
 var crash = audioFileLoader(
-  "https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/CY0010.mp3",
-  convolutionFileUrl
+    "https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/CY0010.mp3",
+    convolutionFileUrl
 );
 
 var kick2 = audioFileLoader(
-  "https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/BD0000.mp3",
-  convolutionFileUrl
+    "https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/BD0000.mp3",
+    convolutionFileUrl
 );
 
 /**
  * Check key pressed
  */
-document.addEventListener("keydown", function(e) {
-  var keyCode = e.keyCode;
-  switch (keyCode) {
-    case 65:
-      kick.play();
-      break;
-    case 68:
-      snare.play();
-      break;
-    case 71:
-      highHat.play();
-      break;
-    case 86:
-      crash.play();
-      break;
-    case 32:
-      kick2.play();
-      break;
-  }
+document.addEventListener("keydown", function (e) {
+    var keyCode = e.keyCode;
+    switch (keyCode) {
+        case 65:
+            kick.play();
+            break;
+        case 68:
+            snare.play();
+            break;
+        case 71:
+            highHat.play();
+            break;
+        case 86:
+            crash.play();
+            break;
+        case 32:
+            kick2.play();
+            break;
+    }
 });
 
-$roastBtn.on("click", function() {
-  let roastArrayLength = roastArrayClone.length;
-  let randomIndex = Math.floor(Math.random() * roastArrayLength);
-  roastIndex = randomIndex;
-  
-  let timer = setInterval(function() {
-    snare.play();
-  }, 60000 / 600);
+/**
+ * Let the Roasts Begin!
+ */
+$roastBtn.on("click", function () {
+    let roastArrayLength = roastArrayClone.length;
+    let randomIndex = Math.floor(Math.random() * roastArrayLength);
+    roastIndex = randomIndex;
 
-  setTimeout(function() {
-    clearInterval(timer);
+    let timer = setInterval(function () {
+        snare.play();
+    }, 60000 / 1200);
 
-    if (roastArrayLength != 0) {
-      $roast.html(roastArrayClone[randomIndex]);
-      $roast.fadeIn();
+    setTimeout(function () {
+        clearInterval(timer);
 
-      msg.text = roastArrayClone[randomIndex];
+        if (roastArrayLength != 0) {
+            $roast.html(roastArrayClone[roastIndex]);
+            $roast.fadeIn();
 
-      window.speechSynthesis.speak(msg);
-      $(".robot__mouth").addClass("robot__mouth--talking");
+            msg.text = roastArrayClone[roastIndex];
+            console.log(roastArrayClone[roastIndex]);
 
-      roastArrayClone.splice(randomIndex, 1);
+            window.speechSynthesis.speak(msg);
+            $(".robot__mouth").addClass("robot__mouth--talking");
 
-      let burned;
-      msg.onend = function(e) {
-        // console.log("Finished in " + event.elapsedTime + " seconds.");
-        $roast.fadeOut(1000);
-        $(".robot__mouth").removeClass("robot__mouth--talking");
-        clearTimeout(burned);
+            roastArrayClone.splice(roastIndex, 1);
 
-        burned = setTimeout(function() {
-          msg2.pitch = 0.6; //0 to 2
-          let burnedArrayLength = burnedArrayClone.length;
-          // let randomIndex = Math.floor(Math.random() * burnedArrayLength);
 
-          $burnStatus.html(burnedArrayClone[roastIndex]);
-          $burnStatus.fadeIn();
+            let burned;
+            msg.onend = function (e) {
+                // console.log("Finished in " + event.elapsedTime + " seconds.");
+                $roast.fadeOut(1000);
+                $(".robot__mouth").removeClass("robot__mouth--talking");
+                clearTimeout(burned);
 
-          if (burnedArray[randomIndex] === "Ba-dum-tish!") {
-            let baDumTish = setInterval(function() {
-              snare.play();
-            }, 60000 / 600);
+                burned = setTimeout(function () {
+                    msg2.pitch = 0.6; //0 to 2
+                    // let randomIndex = Math.floor(Math.random() * burnedArrayLength);
 
-            setTimeout(function() {
-              clearInterval(baDumTish);
-              setTimeout(function() {
-                crash.play();
-                $burnStatus.fadeOut();
-              }, 400);
-            }, 200);
-          } else {
-            msg2.text = burnedArrayClone[randomIndex];
-            window.speechSynthesis.speak(msg2);
-            $(".robot2__mouth").addClass("robot2__mouth--talking");
-            burnedArrayClone.splice(randomIndex, 1);
-          }
-        }, 1000);
-      };
+                    $burnStatus.html(burnedArrayClone[roastIndex]);
+                    $burnStatus.fadeIn();
 
-      msg2.onend = function(e) {
-        $(".robot2__mouth").removeClass("robot2__mouth--talking");
-        $burnStatus.fadeOut(2000);
-      };
-    } else {
-      console.log("out of roast material");
-      roastArrayClone = roastArrayClone.slice(0);
-    }
-  }, 1000);
+                    console.log(roastIndex);
+
+                    if (burnedArrayClone[roastIndex] === "Ba-dum-tish!") {
+                        let baDumTish = setInterval(function () {
+                            snare.play();
+                        }, 60000 / 600);
+
+                        setTimeout(function () {
+                            clearInterval(baDumTish);
+                            setTimeout(function () {
+                                crash.play();
+                                $burnStatus.fadeOut();
+                            }, 400);
+                        }, 200);
+                    } else {
+                        msg2.text = burnedArrayClone[roastIndex];
+                        window.speechSynthesis.speak(msg2);
+                        console.log(burnedArrayClone[roastIndex]);
+
+                        console.log(roastIndex);
+
+                        $(".robot2__mouth").addClass("robot2__mouth--talking");
+
+                        burnedArrayClone.splice(roastIndex, 1);
+
+                    }
+                }, 1000);
+            };
+
+            msg2.onend = function (e) {
+                $(".robot2__mouth").removeClass("robot2__mouth--talking");
+                $burnStatus.fadeOut(2000);
+            };
+        } else {
+            console.log("out of roast material");
+            roastArrayClone = roastArrayClone.slice(0);
+            burnedArrayClone = burnedArrayClone.slice(0);
+        }
+    }, 1000);
 });
 
 // $("#guess-btn").on("click", function() {
