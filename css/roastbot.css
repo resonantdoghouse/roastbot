@@ -2,7 +2,7 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
 
-.roaster-btn, .robot, .robot__eye, .robot__mouth, .robot2, .robot2__eye, .robot2__mouth {
+.robot, .robot__eye, .robot__mouth, .robot2, .robot2__eye, .robot2__mouth {
   border: 2px solid black; }
 
 body {
@@ -49,7 +49,7 @@ body {
   background: url("https://images.unsplash.com/photo-1509931817409-9a11cbf6c8c4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=795c6ac5731b1473b290b254c7e89cdb&auto=format&fit=crop&w=934&q=80") center;
   background-size: cover; }
   .roast-container::before {
-    opacity: 0.5;
+    opacity: 0.6;
     content: '';
     position: absolute;
     background: black;
@@ -76,10 +76,17 @@ body {
 .roaster-btn {
   position: relative;
   z-index: 99;
-  padding: 0.5rem 1rem;
+  padding: 4rem;
   background: #ddd;
+  border: none;
   background: darkred;
-  color: whitesmoke; }
+  color: whitesmoke;
+  margin: 1rem;
+  text-shadow: 3px 3px 3px #000;
+  text-transform: lowercase;
+  cursor: pointer;
+  background: url(../img/Turkey-Transparent-Background.png) center no-repeat;
+  background-size: contain; }
   .roaster-btn:focus {
     outline: 0; }
 
@@ -88,7 +95,17 @@ body {
   z-index: 99;
   margin-top: 1rem;
   text-align: center;
-  width: 90%; }
+  width: 90%;
+  background: rgba(255, 255, 255, 0.5);
+  color: black; }
+  .roast-input::-webkit-input-placeholder {
+    color: black; }
+  .roast-input:-ms-input-placeholder {
+    color: black; }
+  .roast-input::-ms-input-placeholder {
+    color: black; }
+  .roast-input::placeholder {
+    color: black; }
 
 .robot {
   background: lightsteelblue;
@@ -176,15 +193,15 @@ body {
 
 @-webkit-keyframes flashRoll {
   0% {
-    opacity: 0.5; }
+    opacity: 0.6; }
   100% {
-    opacity: 0.1; } }
+    opacity: 0.3; } }
 
 @keyframes flashRoll {
   0% {
-    opacity: 0.5; }
+    opacity: 0.6; }
   100% {
-    opacity: 0.1; } }
+    opacity: 0.3; } }
 
 @-webkit-keyframes talkingRobot {
   0% {

@@ -11,52 +11,46 @@ const roastArray = [
     "Everyone who ever loved you was wrong", // 2
     "Your ambition outweighs your relevant skills", // 3
     "Do you still love nature, despite what it did to you?", // 4
-    "Errors have been made. Others will be blamed", // 5
-    "Your mother is so fat, the recursive function computing her mass causes a stack overflow.", // 6
-    "Your mother is so fat, they assigned her a new top-level domain.", // 7
-    "Your code is so bad. It only works on Internet Explorer", // 8
-    "Yo' Momma's so fat the escape velocity at her surface exceeds 3 times 108 m/s.", // 9
-    "I never believed in chaos theory until I saw your variable naming convention!", // 10
-    "Light travels faster than sound. This is why some people appear bright until you hear them speak.", // 11
-    // "If I agreed with you. We would both be wrong.", // 12
-    "Everyone is entitled to be stupid, but you abuse the privilege", // 13
-    "The trash gets picked up tomorrow. BE READY", // 14
-    // "If you ran like your mouth, you’d be in good shape.", // 15
-    "Don’t feel bad. A lot of people have no talent.", // 16
-    "Your momma is so mean. She has no standard deviation.", // 17
-    "Your code runs so slow your data brings sleeping bags to camp-out in the cache lines.", // 18
-    "Your commit is writing checks your merge can’t cash.", // 19
-    "Your coding methods are so backwards they’ve added it to the school curriculum in Texas!", // 20
-    "Clean, clear, and under control; three things that will never be said about your code.", // 21
-    "Your code, just like you has no class!", // 22
-    "You have a bright future."
+    "Your mother is so fat, the recursive function computing her mass causes a stack overflow.", // 5
+    "Your mother is so fat, they assigned her a new top-level domain.", // 6
+    "Your code is so bad. It only works on Internet Explorer", // 7
+    "Yo' Momma's so fat the escape velocity at her surface exceeds 3 times 108 m/s.", // 8
+    "I never believed in chaos theory until I saw your variable naming convention!", // 9
+    "Light travels faster than sound. This is why some people appear bright until you hear them speak.", // 10
+    "Everyone is entitled to be stupid, but you abuse the privilege", // 11
+    "The trash gets picked up tomorrow. BE READY", // 12
+    "Don’t feel bad. A lot of people have no talent.", // 13
+    "Your momma is so mean. She has no standard deviation.", // 14
+    "Your code runs so slow your data brings sleeping bags to camp-out in the cache lines.", // 15
+    "Your commit is writing checks your merge can’t cash.", // 16
+    "Your coding methods are so backwards they’ve added it to the school curriculum in Texas!", // 17
+    "Clean, clear, and under control; three things that will never be said about your code.", // 18
+    "Your code, just like you has no class!", // 19
+    "You have a bright future." // 20
 ];
 
 const burnedArray = [
-    "It's true, I've seen them do this", // 0
-    "My circuits can handle it", // 1
-    "That is very sad", // 2
-    "Too real", // 3
+    "It's true, I've seen them do this.", // 0
+    "My circuits can handle it.", // 1
+    "That is very sad!", // 2
+    "Too real!", // 3
     "Savage!", // 4
-    "Ba-dum-tish!", // 5
-    "Oh no you didn't", // 6
-    "Stone cold", // 7
-    "Hey-oh!", // 8
-    "It's science", // 9
-    "burned!", // 10
-    "burned", // 11
-    // "burned", // 12
-    "Suck it", // 13
-    "Boo-ya", // 14
-    // "Like a Tetrahedron", // 15
-    "There's always management roles.", // 16
-    "Mathematical burn", // 17
-    "sick burn", // 18
-    "I git it.", // 19
-    "America, fuck yeah!", // 20
-    "Oh my god!", // 21
-    "#noclass", // 22
-    "As a ping-pong champion"
+    "Oh no you didn't!", // 5
+    "Stone cold!", // 6
+    "Hey-oh!", // 7
+    "It's science!", // 8
+    "Burned!", // 9
+    "Ba-dum-tish!", // 10
+    "Suck it!", // 11
+    "Boo-ya!", // 12
+    "There's always management roles.", // 13
+    "Mathematical burn!", // 14
+    "Sick burn!", // 15
+    "I git it!", // 16
+    "America, Fuck Yeah!", // 17
+    "Ba-dum-tish!   ", // 18
+    "Ba-dum-tish!", // 19
+    "As a ping-pong champion!" // 20
 ];
 
 let roastArrayClone = roastArray.slice(0);
@@ -76,7 +70,7 @@ msg.lang = "en-US";
 msg2.voice = voices[10];
 msg2.voiceURI = "native";
 msg2.volume = 0.5; // 0 to 1
-msg2.rate = 0.8; // 0.1 to 10
+msg2.rate = 1; // 0.1 to 10
 msg2.pitch = 0.5; //0 to 2
 msg2.lang = "en-US";
 
@@ -245,7 +239,7 @@ $roastBtn.on("click", function () {
 
     let timer = setInterval(function () {
         snare.play();
-    }, 60000 / 1200);
+    }, 60000 / 1000);
 
     setTimeout(function () {
         clearInterval(timer);
@@ -289,8 +283,10 @@ $roastBtn.on("click", function () {
                             setTimeout(function () {
                                 crash.play();
                                 $burnStatus.fadeOut();
+                                burnedArrayClone.splice(roastIndex, 1);
                             }, 400);
                         }, 200);
+
                     } else {
                         msg2.text = burnedArrayClone[roastIndex];
                         window.speechSynthesis.speak(msg2);

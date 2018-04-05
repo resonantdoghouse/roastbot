@@ -9,6 +9,16 @@
 	],
 "creatorBuild": "26330",
 "files": {
+	"\/css\/normalize-min.css": {
+		"aP": 1,
+		"bl": 0,
+		"ft": 16,
+		"ma": 0,
+		"oA": 0,
+		"oAP": "\/css\/normalize-min-min.css",
+		"oF": 0,
+		"oS": 3
+		},
 	"\/css\/normalize.css": {
 		"aP": 1,
 		"bl": 0,
@@ -41,6 +51,17 @@
 		"oF": 0,
 		"oS": 0,
 		"uL": 1
+		},
+	"\/img\/Turkey-Transparent-Background.png": {
+		"ft": 32768,
+		"iS": 692153,
+		"oA": 0,
+		"oAP": "\/img\/Turkey-Transparent-Background.png",
+		"oF": 0,
+		"oIPL": 0,
+		"opt": 0,
+		"oT": 1,
+		"q": 100
 		},
 	"\/index.html": {
 		"cB": 0,
